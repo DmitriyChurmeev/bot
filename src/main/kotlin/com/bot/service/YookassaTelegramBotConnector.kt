@@ -8,8 +8,6 @@ import org.telegram.telegrambots.meta.api.objects.Update
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton
 
-import java.util.Optional
-
 /**
  * Long polling коннектор к telegram боту ЮKassa
  *
@@ -43,11 +41,18 @@ open class YookassaTelegramBotConnector(
     }
 
     override fun onUpdateReceived(update: Update) {
-        if (update.hasMessage()) {
-            onMessageUpdateReceived(update)
-        } else if (update.hasCallbackQuery()) {
-            onCallbackUpdateReceived(update)
-        }
+        val mainMenuButton = InlineKeyboardButton()
+        mainMenuButton.text = "Вперед"
+
+        mainMenuButton.callbackData = "MainMenu"
+
+        execute(
+         createMessageWithInlineKeyboard(
+            update.message.chatId.toString(),
+            START_MESSAGE_TEXT,
+            listOf(listOf(mainMenuButton))
+        )
+        )
     }
 
     private fun onMessageUpdateReceived(update: Update) {
