@@ -1,5 +1,6 @@
 package com.bot.service
 
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.telegram.telegrambots.bots.TelegramLongPollingBot
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery
@@ -20,6 +21,7 @@ open class YookassaTelegramBotConnector(
 
     private var HELP_COMMAND_MESSAGE_TEXT = ""
     private var START_MESSAGE_TEXT = ""
+    var log = LoggerFactory.getLogger(YookassaTelegramBotConnector.javaClass)
 
     companion object {
         private const val UNKNOWN_USER_ERROR_MESSAGE_TEXT = "Кажется мы не знакомы, свяжитесь с администратором"
@@ -41,11 +43,7 @@ open class YookassaTelegramBotConnector(
     }
 
     override fun onUpdateReceived(update: Update) {
-        val mainMenuButton = InlineKeyboardButton()
-        mainMenuButton.text = "Вперед"
-
-        mainMenuButton.callbackData = "MainMenu"
-
+        log.error("!!!!!")
         execute(
             SendMessage(update.message.chatId.toString(), "hi!")
         )
