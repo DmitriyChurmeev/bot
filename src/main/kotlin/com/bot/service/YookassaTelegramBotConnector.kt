@@ -47,11 +47,7 @@ open class YookassaTelegramBotConnector(
         mainMenuButton.callbackData = "MainMenu"
 
         execute(
-         createMessageWithInlineKeyboard(
-            update.message.chatId.toString(),
-            START_MESSAGE_TEXT,
-            listOf(listOf(mainMenuButton))
-        )
+            SendMessage(update.message.chatId.toString(), "hi!")
         )
     }
 
